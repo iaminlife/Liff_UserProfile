@@ -1,64 +1,86 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LIFF Register UsersLine</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <title>Register Users</title>
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" rel="stylesheet">
   <style>
-    #pictureUrl { display: block; margin: 0 auto; }
-    .box { border: 4px solid #96CEB4; border-radius: 8px; padding: 20px; }
+    html, body {
+      height: 100%;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #96CEB4, #FFDD94);
+    }
+    .form-container {
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+    .button {
+      width: 100%;
+    }
   </style>
 </head>
 <body>
-<section class="hero is-primary is-bold">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title has-text-centered">🏠 ระบบลงทะเบียนผู้เช่า</h1>
+
+<div class="form-container">
+  <h1 class="title is-3 has-text-primary">ลงทะเบียนผู้ใช้งาน</h1>
+  
+  <form id="form" method="POST">
+    <div class="field">
+      <label class="label">เลขที่ห้อง</label>
+      <div class="control">
+        <input class="input" type="number" name="RoomNo" placeholder="กรอกเลขห้อง 4 หลัก" min="1000" max="9999" required>
+      </div>
     </div>
-  </div>
-</section>
 
-<section class="container m-4">
-  <div class="box">
-    <img id="pictureUrl" width="75%">
-    <p id="displayName" class="has-text-primary has-text-centered"></p>
-  </div>
-</section>
+    <div class="field">
+      <label class="label">เลขบัตรประชาชน</label>
+      <div class="control">
+        <input class="input" type="number" name="IDcard" placeholder="กรอกเลขบัตรประชาชน 13 หลัก" minlength="13" maxlength="13" required>
+      </div>
+    </div>
 
-<form id="form" method="POST">
-  <div class="field">
-    <label class="label">เลขที่ห้อง</label>
+    <div class="field">
+      <label class="label">เพศ</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="Gender" value="male" required> ชาย
+        </label>
+        <label class="radio">
+          <input type="radio" name="Gender" value="female" required> หญิง
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="checkbox">
+        <input type="checkbox" name="AgreeToTerms" required> ยอมรับเงื่อนไขการใช้งาน
+      </label>
+    </div>
+
     <div class="control">
-      <input type="number" name="RoomNo" placeholder="กรอกเลขห้อง 4 หลัก" min="1000" max="9999" required>
+      <button class="button is-primary" type="submit" id="submit-button">ลงทะเบียน</button>
     </div>
-  </div>
+  </form>
+</div>
 
-  <div class="field">
-    <label class="label">เลขบัตรประชาชน</label>
-    <div class="control">
-      <input type="number" name="IDcard" placeholder="กรอกเลขบัตรประชาชน" minlength="13" maxlength="13" required>
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">เพศ</label>
-    <div class="control">
-      <label class="radio"><input type="radio" name="Gender" value="male" required> ชาย</label>
-      <label class="radio"><input type="radio" name="Gender" value="female" required> หญิง</label>
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="checkbox">
-      <input type="checkbox" name="AgreeToTerms" required> ยอมรับเงื่อนไขการใช้งาน
-    </label>
-  </div>
-
-  <div class="control">
-    <button class="button is-primary" type="submit" id="submit-button">ลงทะเบียน</button>
-  </div>
-</form>
+<script>
+  document.getElementById("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    alert("ส่งข้อมูลสำเร็จ 🎯");
+    this.reset();
+  });
+</script>
 
 <div id="message" style="display:none; margin: 20px; font-weight: bold;"></div>
 
