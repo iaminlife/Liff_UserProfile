@@ -50,18 +50,19 @@
       <label class="label">Your RoomNo</label>
       <div class="control">
 	<label class="number">
-        <input type="number" placeholder=" 4 Digit" name="RoomNo" maxlength="4" minlength="4" />
+        <input type="text" placeholder=" 4 Digit" name="RoomNo" maxlength="4" pattern="[0-9]{4}" title="กรุณากรอกเลขห้อง 4 หลัก"/>
 
 
       </div>
     </div>
 
-    <!-- <div class="field">
-      <label class="label">Email</label>
+    <div class="field">
+      <label class="label">ID card number</label>
       <div class="control">
-        <input class="input" type="email" placeholder="Your Email" name="Email" />
+        label class="number">
+        <input type="text" placeholder=" หมายเลขบัตรประชาชน " name="IDcard" maxlength="13" minlength="13" pattern="[0-9]{13}" title="กรุณากรอกเลขบัตรประชาชน 13 หลัก"/>
       </div>
-    </div> -->
+    </div> 
 
     <!-- <div class="field">
       <label class="label">Password</label>
@@ -204,15 +205,28 @@
         document.getElementById("message").style.backgroundColor = "green";
         document.getElementById("message").style.color = "beige";
         document.getElementById("submit-button").disabled = false;
+	document.getElementById("submit-button").classList.add("is-loading");
+	document.getElementById("submit-button").classList.remove("is-loading");
         document.getElementById("form").reset();
 		
 		// closeWindow call
-	if (!liff.isInClient()) {
-	    window.alert('This button is unavailable as LIFF is currently being opened in an external browser.');
-	} else {
-		alert("ข้อมูลถูกบันทึกแล้ว");
+	if (liff.isInClient()) {
+	  liff.sendMessages([
+	  {
+	    type: "text",
+	    text: `ขอบคุณคุณ ${profile.displayName} ข้อมูลของคุณถูกบันทึกเรียบร้อยแล้ว 🎯`,
+	  },
+		  ])
+	  .then(() => {
 	    liff.closeWindow();
+	  })
+	  .catch((err) => {
+	    console.log("error", err);
+	  });
+	} else {
+	  alert("บันทึกข้อมูลเรียบร้อยแล้ว");
 	}
+
 	      //Sent 
 	liff
 	  .sendMessages([
