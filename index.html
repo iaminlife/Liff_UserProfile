@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -92,8 +91,6 @@ async function runApp() {
   try {
     const profile = await liff.getProfile();
     userProfile = profile;
-    document.getElementById("pictureUrl").src = profile.pictureUrl;
-    document.getElementById("displayName").innerHTML = `<b>ชื่อ:</b> ${profile.displayName}`;
     document.getElementById("form").dataset.userId = profile.userId;
     console.log("LIFF Profile:", profile);
   } catch (err) {
@@ -115,11 +112,6 @@ document.getElementById("form").onsubmit = async function (e) {
 
   formData.append("UserId", userProfile.userId);
   formData.append("DisplayName", userProfile.displayName);
-
-  if (!validateIDCard(formData.get("IDcard"))) {
-    alert("เลขบัตรประชาชนไม่ถูกต้อง!");
-    return;
-  }
 
   document.getElementById("submit-button").classList.add("is-loading");
 
@@ -144,16 +136,6 @@ document.getElementById("form").onsubmit = async function (e) {
 
   document.getElementById("submit-button").classList.remove("is-loading");
 };
-
-function validateIDCard(id) {
-  if (id.length !== 13) return false;
-  let sum = 0;
-  for (let i = 0; i < 12; i++) {
-    sum += parseInt(id.charAt(i)) * (13 - i);
-  }
-  let check = (11 - (sum % 11)) % 10;
-  return check === parseInt(id.charAt(12));
-}
 </script>
 </body>
 </html>
